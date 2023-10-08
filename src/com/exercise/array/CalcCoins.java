@@ -5,6 +5,8 @@
 
 package com.exercise.array;
 
+import java.awt.print.Printable;
+
 public class CalcCoins {
     public static void main(String[] args) {
         int[] coinUnit = {500, 100, 50, 10};  // 동전의 종류
@@ -13,13 +15,14 @@ public class CalcCoins {
         System.out.println("money = " + money);
 
         // 필요한 동전의 종류와 개수를 계산한다.
-        int[] coinNeeded = new int[4];  // 필요한 동전의 개수를 저장할 배열
-        coinNeeded[0] = money / coinUnit[0];  // 500원 동전의 개수
-        System.out.println("500원: " + coinNeeded[0]);
-        //100원, 50원, 10원 동전의 개수
-        for (int i = 1; i < coinUnit.length; i++) {
-            coinNeeded[i] = (money % coinUnit[i-1]) / coinUnit[i];
-            System.out.printf("%d원: %d%n", coinUnit[i], coinNeeded[i]);
+        // 500원: (money / 500)개, 100원: ((money%500) / 100)개,
+        // 50원: ((money%100) / 50)개, 10원: ((money%50) / 10)개 필요
+        for (int i = 0; i < coinUnit.length; i++) {
+            if (i == 0) {  // 필요한 500원 동전의 개수
+                System.out.println("500원: " + (money / coinUnit[0]) );
+            } else {  // 필요한 100원, 50원, 10원 동전의 개수를 차례로 출력
+                System.out.printf("%d원: %d%n", coinUnit[i], (money % coinUnit[i-1])/coinUnit[i]);
+            }
         }
     }  // main
 }  // class
